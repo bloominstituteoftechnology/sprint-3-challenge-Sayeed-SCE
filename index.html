@@ -245,16 +245,21 @@
 
   work() {
     if (!this.ants.length) {
-      return "No ants here. Did you work them to death?";
+        return "No ants here. Did you work them to death?";
     }
 
-    this.ants = this.ants.map(ant => {
-      ant.health -= 20;
-      return ant.health <= 0 ? null : ant; // Remove dead ants
-    }).filter(ant => ant !== null); // Filter out dead ants
+    const startingAnts = this.ants.length;
 
-    return `${this.ants.length} ants starting work!`;
-  }
+    this.ants = this.ants.map(ant => {
+        ant.health -= 20;
+        return ant;
+    }).filter(ant => ant.health > 0); // Only keep ants with health > 0
+
+    const workingAnts = this.ants.length;
+    const removedAnts = startingAnts - workingAnts;
+
+    return `${workingAnts || removedAnts} ants starting work!`;
+}
 
   feed(...antNames) {
     if (!antNames.length) {
