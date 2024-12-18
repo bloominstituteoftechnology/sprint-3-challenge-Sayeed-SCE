@@ -59,6 +59,61 @@
       // ❗ WARNING: except for `getAllReversed`, methods must respect the order of the integers
       // ❗ WARNING: note that except for push and pop, the methods don't change the `ints` property
 
+  constructor(...args) {
+    this.ints = [];
+    for (const arg of args) {
+      if (Number.isInteger(arg)) {
+        this.ints.push(arg);
+      } else {
+        throw new TypeError("Arguments must be integers.");
+      }
+    }
+  }
+
+  getAll() {
+    return [...this.ints]; // Return a copy to avoid modification
+  }
+
+  getEvens() {
+    return this.ints.filter(num => num % 2 === 0);
+  }
+
+  getNegatives() {
+    return this.ints.filter(num => num < 0);
+  }
+
+  getAllSquared() {
+    return this.ints.map(num => num * num);
+  }
+
+  pop() {
+    return this.ints.pop();
+  }
+
+  push(int) {
+    if (!Number.isInteger(int)) {
+        throw new TypeError("Argument must be an integer.");
+    }
+    this.ints.push(int);
+    return [...this.ints]; // Return a copy of the updated array
+  }
+
+  getEveryNth(n) {
+    if (!Number.isInteger(n) || n <= 0) {
+        throw new TypeError("Argument must be a positive integer.");
+    }
+    const result = [];
+    for (let i = 0; i < this.ints.length; i += n) {
+      result.push(this.ints[i]);
+    }
+    return result;
+  }
+
+  getAllReversed() {
+    return [...this.ints].reverse(); // Return a reversed copy
+  }
+      
+
     }
 
     // 👉 CHALLENGE 2 NerfGun
